@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { IBM_Plex_Sans } from "next/font/google";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
@@ -9,13 +8,6 @@ import { buildMetadata, getBaseUrl, siteConfig } from "@/lib/site-config";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/structured-data";
 
 import "../styles.css";
-
-const ibmPlexSans = IBM_Plex_Sans({
-  subsets: ["latin", "cyrillic"],
-  weight: ["400", "500", "600", "700"],
-  display: "swap",
-  variable: "--font-plex"
-});
 
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseUrl()),
@@ -46,7 +38,7 @@ const themeScript = `
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="ru" suppressHydrationWarning>
-      <body className={ibmPlexSans.className}>
+      <body>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <StructuredData data={[organizationJsonLd(), websiteJsonLd()]} />
         <div className="page-shell">
