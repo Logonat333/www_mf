@@ -66,7 +66,7 @@ export function SiteHeader() {
           })}
         </nav>
         <div className="header-actions">
-          <Link className="login-link" href="/login" aria-label="Войти в кабинет">
+          <Link className="login-link" href="/lk/admin" aria-label="Войти в кабинет">
             <LogIn size={18} />
           </Link>
           <button
