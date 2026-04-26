@@ -3,6 +3,10 @@ import { NextResponse } from "next/server";
 type LeadPayload = {
   name?: string;
   company?: string;
+  role?: string;
+  projectCount?: string;
+  currentTools?: string;
+  pilotGoal?: string;
   email?: string;
   phone?: string;
   comment?: string;
@@ -62,6 +66,10 @@ export async function POST(request: Request) {
     lead: {
       name,
       company,
+      role: payload.role?.trim() || "",
+      projectCount: payload.projectCount?.trim() || "",
+      currentTools: payload.currentTools?.trim() || "",
+      pilotGoal: payload.pilotGoal?.trim() || "",
       email,
       phone,
       comment: payload.comment?.trim() || "",

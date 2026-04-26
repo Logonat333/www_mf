@@ -14,7 +14,6 @@ export function organizationJsonLd() {
         "@type": "ContactPoint",
         contactType: "sales",
         email: "hello@mail-flow-crm.ru",
-        telephone: "+7-495-000-00-00",
         availableLanguage: ["Russian"]
       }
     ]

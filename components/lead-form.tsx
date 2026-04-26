@@ -51,6 +51,10 @@ export function LeadForm({ compact = false }: LeadFormProps) {
     const payload = {
       name: formData.get("name"),
       company: formData.get("company"),
+      role: formData.get("role"),
+      projectCount: formData.get("projectCount"),
+      currentTools: formData.get("currentTools"),
+      pilotGoal: formData.get("pilotGoal"),
       email: formData.get("email"),
       phone: formData.get("phone"),
       comment: formData.get("comment"),
@@ -76,6 +80,10 @@ export function LeadForm({ compact = false }: LeadFormProps) {
         body: JSON.stringify({
           name: String(payload.name || "").trim(),
           company: String(payload.company || "").trim(),
+          role: String(payload.role || "").trim(),
+          projectCount: String(payload.projectCount || "").trim(),
+          currentTools: String(payload.currentTools || "").trim(),
+          pilotGoal: String(payload.pilotGoal || "").trim(),
           email: String(payload.email || "").trim(),
           phone: String(payload.phone || "").trim(),
           comment: String(payload.comment || "").trim(),
@@ -92,7 +100,7 @@ export function LeadForm({ compact = false }: LeadFormProps) {
       form.reset();
       setStatus({
         kind: "success",
-        message: "Заявка отправлена. Команда MailFlow свяжется с вами."
+        message: "Заявка на пилот отправлена. Команда MailFlow свяжется с вами."
       });
     } catch (error) {
       const message = error instanceof Error ? error.message : "Не удалось отправить заявку.";
@@ -120,6 +128,30 @@ export function LeadForm({ compact = false }: LeadFormProps) {
           />
         </div>
         <div className="field">
+          <label htmlFor={compact ? "contact-role" : "lead-role"}>Ваша роль</label>
+          <select id={compact ? "contact-role" : "lead-role"} name="role" defaultValue="">
+            <option value="" disabled>
+              Выберите роль
+            </option>
+            <option value="owner">Владелец / руководитель агентства</option>
+            <option value="crm-marketer">CRM-маркетолог</option>
+            <option value="project-lead">Project / account lead</option>
+            <option value="client-side">Маркетолог на стороне клиента</option>
+          </select>
+        </div>
+        <div className="field">
+          <label htmlFor={compact ? "contact-projects" : "lead-projects"}>Клиентов или проектов</label>
+          <select id={compact ? "contact-projects" : "lead-projects"} name="projectCount" defaultValue="">
+            <option value="" disabled>
+              Выберите объем
+            </option>
+            <option value="1-2">1-2 для первого пилота</option>
+            <option value="3-5">3-5 активных проектов</option>
+            <option value="6-15">6-15 активных проектов</option>
+            <option value="15+">Больше 15 проектов</option>
+          </select>
+        </div>
+        <div className="field">
           <label htmlFor={compact ? "contact-email" : "lead-email"}>Email</label>
           <input
             id={compact ? "contact-email" : "lead-email"}
@@ -134,18 +166,36 @@ export function LeadForm({ compact = false }: LeadFormProps) {
           <input id={compact ? "contact-phone" : "lead-phone"} name="phone" type="tel" autoComplete="tel" required />
         </div>
         <div className="field span-2">
+          <label htmlFor={compact ? "contact-tools" : "lead-tools"}>Где сейчас живет процесс</label>
+          <input
+            id={compact ? "contact-tools" : "lead-tools"}
+            name="currentTools"
+            type="text"
+            placeholder="Например: Excel, Planfix, Miro, Drive, Telegram"
+          />
+        </div>
+        <div className="field span-2">
+          <label htmlFor={compact ? "contact-goal" : "lead-goal"}>Что хотите проверить в пилоте</label>
+          <input
+            id={compact ? "contact-goal" : "lead-goal"}
+            name="pilotGoal"
+            type="text"
+            placeholder="Например: задачи и согласования по двум клиентам"
+          />
+        </div>
+        <div className="field span-2">
           <label htmlFor={compact ? "contact-comment" : "lead-comment"}>Комментарий</label>
           <textarea
             id={compact ? "contact-comment" : "lead-comment"}
             name="comment"
             rows={5}
-            placeholder="Коротко опишите команду, объём проектов или текущий процесс."
+            placeholder="Коротко опишите команду, текущий процесс или главный источник хаоса."
           />
         </div>
       </div>
       <div className="cluster">
         <button className="button button-primary" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Отправляем..." : "Оставить заявку"}
+          {isSubmitting ? "Отправляем..." : "Запросить демо"}
         </button>
       </div>
       <div className={`form-status${status.kind ? ` ${status.kind}` : ""}`} aria-live="polite">

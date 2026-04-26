@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { Menu, Moon, Sun, X } from "lucide-react";
+import { LogIn, Menu, Moon, Sun, X } from "lucide-react";
 
 import { navigation } from "@/lib/site-content";
 
@@ -54,22 +54,30 @@ export function SiteHeader() {
           {navigation.map((item) => {
             const active = pathname === item.href;
             return (
-              <Link key={item.href} className={`nav-link${active ? " active" : ""}`} href={item.href}>
+              <Link
+                key={item.href}
+                className={`nav-link${active ? " active" : ""}`}
+                href={item.href}
+                onClick={() => setIsMenuOpen(false)}
+              >
                 {item.label}
               </Link>
             );
           })}
         </nav>
         <div className="header-actions">
+          <Link className="login-link" href="/login" aria-label="Войти в кабинет">
+            <LogIn size={18} />
+          </Link>
           <button
             className="theme-toggle"
             type="button"
             onClick={toggleTheme}
-            aria-label={theme === "dark" ? "Включить светлую тему" : "Включить тёмную тему"}
+            aria-label={theme === "dark" ? "Включить светлую тему" : "Включить темную тему"}
           >
             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
           </button>
-          <Link className="button button-primary" href="/contacts">
+          <Link className="button button-primary" href="/contacts" onClick={() => setIsMenuOpen(false)}>
             Запросить демо
           </Link>
           <button
@@ -88,16 +96,21 @@ export function SiteHeader() {
           {navigation.map((item) => {
             const active = pathname === item.href;
             return (
-              <Link key={item.href} className={`nav-link${active ? " active" : ""}`} href={item.href}>
+              <Link
+                key={item.href}
+                className={`nav-link${active ? " active" : ""}`}
+                href={item.href}
+                onClick={() => setIsMenuOpen(false)}
+              >
                 {item.label}
               </Link>
             );
           })}
-          <Link className="button button-secondary" href="/login">
-            Войти
-          </Link>
-          <Link className="button button-primary" href="/contacts">
-            Получить демо
+          <button className="button button-secondary" type="button" onClick={toggleTheme}>
+            {theme === "dark" ? "Светлая тема" : "Темная тема"}
+          </button>
+          <Link className="button button-primary" href="/contacts" onClick={() => setIsMenuOpen(false)}>
+            Запросить демо
           </Link>
         </nav>
       </div>

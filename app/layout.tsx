@@ -1,13 +1,22 @@
 import type { Metadata } from "next";
+import { Nunito } from "next/font/google";
 import type { ReactNode } from "react";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { ScrollReveal } from "@/components/scroll-reveal";
 import { StructuredData } from "@/components/structured-data";
 import { buildMetadata, getBaseUrl, siteConfig } from "@/lib/site-config";
 import { organizationJsonLd, websiteJsonLd } from "@/lib/structured-data";
 
 import "../styles.css";
+
+const nunito = Nunito({
+  subsets: ["latin", "cyrillic"],
+  weight: ["300", "400", "500", "600", "700", "800"],
+  variable: "--font-nunito",
+  display: "swap"
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseUrl()),
@@ -38,11 +47,12 @@ const themeScript = `
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="ru" suppressHydrationWarning>
-      <body>
+      <body className={nunito.variable}>
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
         <StructuredData data={[organizationJsonLd(), websiteJsonLd()]} />
         <div className="page-shell">
           <SiteHeader />
+          <ScrollReveal />
           <main>{children}</main>
           <SiteFooter />
         </div>
