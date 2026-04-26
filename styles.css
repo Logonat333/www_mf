@@ -3793,3 +3793,29 @@ html[data-theme="dark"] .interface-slideshow-dots {
     transform: none;
   }
 }
+
+/* Wider desktop presentation for production-scale viewports */
+@media (min-width: 1440px) {
+  .container {
+    width: min(1720px, calc(100% - clamp(48px, 5vw, 96px)));
+  }
+
+  .figma-hero-frame .hero-grid {
+    grid-template-columns: minmax(0, 0.78fr) minmax(640px, 1fr);
+    gap: clamp(48px, 5vw, 92px);
+  }
+
+  .interface-slideshow {
+    width: min(100%, 780px);
+  }
+}
+
+@media (min-width: 1920px) {
+  .container {
+    width: min(1840px, calc(100% - 96px));
+  }
+
+  .interface-slideshow {
+    width: min(100%, 840px);
+  }
+}
