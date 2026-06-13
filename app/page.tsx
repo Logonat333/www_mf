@@ -4,7 +4,7 @@ import { ArrowRight } from "lucide-react";
 import { InterfaceSlideshow } from "@/components/interface-slideshow";
 import { LeadForm } from "@/components/lead-form";
 import { StructuredData } from "@/components/structured-data";
-import { faqItems, painPoints, proofPoints, scenarios, trustPoints, workflowSteps } from "@/lib/site-content";
+import { faqItems, painPoints, scenarios, trustPoints, workflowSteps } from "@/lib/site-content";
 import { buildMetadata, getBaseUrl } from "@/lib/site-config";
 
 export const metadata = buildMetadata({
@@ -85,14 +85,6 @@ export default function HomePage() {
 
             <InterfaceSlideshow />
           </div>
-        </div>
-        <div className="container hero-stat-grid">
-          {proofPoints.map((item) => (
-            <article key={item.label} className="hero-stat-card">
-              <strong>{item.value}</strong>
-              <span>{item.label}</span>
-            </article>
-          ))}
         </div>
       </section>
 

@@ -6,13 +6,6 @@ export const navigation = [
   { href: "/contacts", label: "Контакты" }
 ];
 
-export const proofPoints = [
-  { value: "0", label: "клиентов сейчас пользуются" },
-  { value: "0", label: "активных рабочих пространств" },
-  { value: "0", label: "маркетинговых проектов ведется" },
-  { value: "0", label: "команд подключено" }
-];
-
 export const painPoints = [
   {
     title: "Процесс живет в разных местах",

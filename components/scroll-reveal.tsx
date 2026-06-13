@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 const revealSelector = [
   "main .hero-copy",
   "main .interface-slideshow",
-  "main .hero-stat-card",
   "main .page-hero-card",
   "main .section-head",
   "main .card",
