@@ -1,4 +1,5 @@
 import { StructuredData } from "@/components/structured-data";
+import { companyRequisites } from "@/lib/site-content";
 import { buildMetadata } from "@/lib/site-config";
 
 export const metadata = buildMetadata({
@@ -45,6 +46,11 @@ export default function PrivacyPage() {
               <p>
                 По вопросам обработки данных используйте адрес{" "}
                 <a href="mailto:hello@mail-flow-crm.ru">hello@mail-flow-crm.ru</a>.
+              </p>
+              <h3>6. Оператор</h3>
+              <p>
+                {companyRequisites.shortLegalName}, ИНН {companyRequisites.inn}, ОГРН/ОГРНИП{" "}
+                {companyRequisites.ogrnip}. Юридический адрес: {companyRequisites.legalAddress}.
               </p>
             </div>
           </div>

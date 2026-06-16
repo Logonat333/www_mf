@@ -2,6 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Linkedin, Mail, Send } from "lucide-react";
 
+import { companyRequisites } from "@/lib/site-content";
+
 export function SiteFooter() {
   return (
     <footer className="site-footer">
@@ -13,6 +15,11 @@ export function SiteFooter() {
           </Link>
           <p className="legal-note">
             Единый рабочий хаб для маркетинговых агентств, клиентских задач, досок и согласований.
+          </p>
+          <p className="legal-note legal-entity">
+            {companyRequisites.shortLegalName}
+            <br />
+            ИНН {companyRequisites.inn}
           </p>
           <div className="social-row">
             <a className="social-link" href="mailto:hello@mail-flow-crm.ru" aria-label="MailFlow email">
@@ -36,6 +43,7 @@ export function SiteFooter() {
         <div className="footer-links">
           <strong>Компания</strong>
           <Link href="/contacts">Контакты</Link>
+          <Link href="/contacts#requisites">Реквизиты</Link>
           <Link href="/privacy">Политика</Link>
           <a href="mailto:hello@mail-flow-crm.ru">hello@mail-flow-crm.ru</a>
         </div>

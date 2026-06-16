@@ -1,6 +1,6 @@
 import { LeadForm } from "@/components/lead-form";
 import { StructuredData } from "@/components/structured-data";
-import { trustPoints } from "@/lib/site-content";
+import { companyRequisites, trustPoints } from "@/lib/site-content";
 import { buildMetadata } from "@/lib/site-config";
 
 export const metadata = buildMetadata({
@@ -65,6 +65,23 @@ export default function ContactsPage() {
                 Telegram
               </a>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section" id="requisites">
+        <div className="container">
+          <div className="surface page-hero-card requisites-card">
+            <span className="eyebrow">Реквизиты</span>
+            <h2>{companyRequisites.shortLegalName}</h2>
+            <dl className="requisites-list">
+              {companyRequisites.items.map(([label, value]) => (
+                <div key={label} className="requisites-row">
+                  <dt>{label}</dt>
+                  <dd>{value}</dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
       </section>

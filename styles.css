@@ -740,6 +740,44 @@ h3 {
   gap: 12px;
 }
 
+.requisites-card {
+  display: grid;
+  gap: 16px;
+}
+
+.requisites-card h2 {
+  margin: 0;
+  font-size: clamp(28px, 2.4vw, 42px);
+  line-height: 1.18;
+  letter-spacing: 0;
+}
+
+.requisites-list {
+  display: grid;
+  margin: 2px 0 0;
+  border-top: 1px solid var(--border);
+}
+
+.requisites-row {
+  display: grid;
+  grid-template-columns: minmax(220px, 0.42fr) minmax(0, 1fr);
+  gap: 16px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border);
+}
+
+.requisites-row dt {
+  color: var(--muted);
+}
+
+.requisites-row dd {
+  margin: 0;
+  color: var(--text);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  overflow-wrap: anywhere;
+}
+
 .lead-form {
   display: grid;
   gap: 16px;
@@ -817,6 +855,11 @@ h3 {
   margin-top: 20px;
   color: var(--muted);
   font-size: 14px;
+}
+
+.legal-entity {
+  margin-top: 12px;
+  line-height: 1.5;
 }
 
 .page-hero {
@@ -2555,6 +2598,11 @@ body {
 
   .field.span-2 {
     grid-column: auto;
+  }
+
+  .requisites-row {
+    grid-template-columns: 1fr;
+    gap: 6px;
   }
 }
 
