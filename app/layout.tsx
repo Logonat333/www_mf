@@ -21,7 +21,7 @@ const nunito = Nunito({
 export const metadata: Metadata = {
   metadataBase: new URL(getBaseUrl()),
   ...buildMetadata({
-    title: "MailFlow | Контент-план и рассылки для B2B-команд",
+    title: "MailFlow | Enterprise Marketing Planning и промо-календарь",
     description: siteConfig.description,
     path: "/"
   }),

@@ -3,47 +3,53 @@
 import type { KeyboardEvent as ReactKeyboardEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
 const slides = [
   {
     lightSrc: "/interface-slides/light-dashboard.png",
     darkSrc: "/interface-slides/dark-dashboard.png",
-    alt: "Главная панель PremiumBonus"
+    alt: "Главная панель MailFlow"
+  },
+  {
+    lightSrc: "/interface-slides/light-dashboard-details.png",
+    darkSrc: "/interface-slides/dark-dashboard-details.png",
+    alt: "Показатели и ближайшие публикации MailFlow"
   },
   {
     lightSrc: "/interface-slides/light-analytics-results.png",
     darkSrc: "/interface-slides/dark-analytics-results.png",
-    alt: "Результаты аналитики PremiumBonus"
+    alt: "Результаты аналитики MailFlow"
   },
   {
     lightSrc: "/interface-slides/light-analytics-dashboard.png",
     darkSrc: "/interface-slides/dark-analytics-dashboard.png",
-    alt: "Дашборд аналитики PremiumBonus"
+    alt: "Дашборд аналитики MailFlow"
   },
   {
-    lightSrc: "/interface-slides/light-companies.png",
-    darkSrc: "/interface-slides/dark-companies.png",
-    alt: "Список компаний PremiumBonus"
+    lightSrc: "/interface-slides/light-documents.png",
+    darkSrc: "/interface-slides/dark-documents.png",
+    alt: "Документы и материалы MailFlow"
   },
   {
     lightSrc: "/interface-slides/light-tasks.png",
     darkSrc: "/interface-slides/dark-tasks.png",
-    alt: "Канбан задач PremiumBonus"
+    alt: "Канбан задач MailFlow"
   },
   {
     lightSrc: "/interface-slides/light-calendar.png",
     darkSrc: "/interface-slides/dark-calendar.png",
-    alt: "Календарь контент-плана PremiumBonus"
+    alt: "Календарь клиентских активностей MailFlow"
   },
   {
     lightSrc: "/interface-slides/light-list-kanban.png",
     darkSrc: "/interface-slides/dark-list-kanban.png",
-    alt: "Канбан рассылок PremiumBonus"
+    alt: "Канбан активностей MailFlow"
   },
   {
     lightSrc: "/interface-slides/light-board.png",
     darkSrc: "/interface-slides/dark-board.png",
-    alt: "Доска PremiumBonus"
+    alt: "Доска проекта MailFlow"
   }
 ];
 
@@ -109,6 +115,15 @@ export function InterfaceSlideshow() {
     setIsPaused((paused) => !paused);
   };
 
+  const changeSlide = (direction: -1 | 1) => {
+    if (clickTimer.current) {
+      window.clearTimeout(clickTimer.current);
+      clickTimer.current = null;
+    }
+
+    setActiveIndex((index) => (index + direction + slides.length) % slides.length);
+  };
+
   const handleClick = () => {
     if (clickTimer.current) {
       window.clearTimeout(clickTimer.current);
@@ -139,6 +154,18 @@ export function InterfaceSlideshow() {
   };
 
   const handleKeyDown = (event: ReactKeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "ArrowLeft") {
+      event.preventDefault();
+      changeSlide(-1);
+      return;
+    }
+
+    if (event.key === "ArrowRight") {
+      event.preventDefault();
+      changeSlide(1);
+      return;
+    }
+
     if (event.key !== "Enter" && event.key !== " ") {
       return;
     }
@@ -166,13 +193,39 @@ export function InterfaceSlideshow() {
               className={`interface-slide${index === activeIndex ? " active" : ""}`}
               src={theme === "dark" ? slide.darkSrc : slide.lightSrc}
               alt={slide.alt}
-              width={1888}
-              height={1536}
+              width={2090}
+              height={1580}
               loading={index === 0 ? "eager" : "lazy"}
               decoding="async"
             />
           ))}
         </span>
+        <button
+          className="interface-slide-arrow interface-slide-arrow-prev"
+          type="button"
+          aria-label="Показать предыдущий скриншот"
+          onPointerDown={(event) => event.stopPropagation()}
+          onClick={(event) => {
+            event.stopPropagation();
+            changeSlide(-1);
+          }}
+          onDoubleClick={(event) => event.stopPropagation()}
+        >
+          <ChevronLeft size={22} aria-hidden="true" />
+        </button>
+        <button
+          className="interface-slide-arrow interface-slide-arrow-next"
+          type="button"
+          aria-label="Показать следующий скриншот"
+          onPointerDown={(event) => event.stopPropagation()}
+          onClick={(event) => {
+            event.stopPropagation();
+            changeSlide(1);
+          }}
+          onDoubleClick={(event) => event.stopPropagation()}
+        >
+          <ChevronRight size={22} aria-hidden="true" />
+        </button>
         <span className="interface-slideshow-dots" aria-label="Переключить скриншот интерфейса">
           {slides.map((slide, index) => (
             <button
@@ -202,7 +255,7 @@ export function InterfaceSlideshow() {
             <button className="interface-lightbox-close" type="button" onClick={() => setIsExpanded(false)}>
               Закрыть
             </button>
-            <img src={activeSlideSrc} alt={activeSlide.alt} width={1888} height={1536} />
+            <img src={activeSlideSrc} alt={activeSlide.alt} width={2090} height={1580} />
           </div>
         </div>,
         document.body

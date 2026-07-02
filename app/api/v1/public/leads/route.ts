@@ -7,6 +7,7 @@ type LeadPayload = {
   projectCount?: string;
   currentTools?: string;
   pilotGoal?: string;
+  contact?: string;
   email?: string;
   phone?: string;
   comment?: string;
@@ -26,16 +27,28 @@ export async function POST(request: Request) {
 
   const name = payload.name?.trim() || "";
   const company = payload.company?.trim() || "";
-  const email = payload.email?.trim() || "";
-  const phone = payload.phone?.trim() || "";
+  const contact = payload.contact?.trim() || payload.email?.trim() || payload.phone?.trim() || "";
+  const email = payload.email?.trim() || (isEmail(contact) ? contact : "");
+  const phone = payload.phone?.trim() || (!isEmail(contact) ? contact : "");
+  const pilotGoal = payload.pilotGoal?.trim() || "";
 
-  if (!name || !company || !email || !phone) {
+  if (!name || !company || !contact || !pilotGoal) {
     return NextResponse.json({ detail: "Заполните обязательные поля." }, { status: 400 });
   }
 
-  if (!isEmail(email)) {
+  if (email && !isEmail(email)) {
     return NextResponse.json({ detail: "Проверьте email." }, { status: 400 });
   }
+
+  const normalizedPayload = {
+    ...payload,
+    name,
+    company,
+    contact,
+    email,
+    phone,
+    pilotGoal
+  };
 
   const upstreamUrl = process.env.MAILFLOW_LEADS_ENDPOINT;
 
@@ -46,7 +59,7 @@ export async function POST(request: Request) {
         "Content-Type": "application/json",
         Accept: "application/json"
       },
-      body: JSON.stringify(payload),
+      body: JSON.stringify(normalizedPayload),
       cache: "no-store"
     });
 
@@ -69,7 +82,8 @@ export async function POST(request: Request) {
       role: payload.role?.trim() || "",
       projectCount: payload.projectCount?.trim() || "",
       currentTools: payload.currentTools?.trim() || "",
-      pilotGoal: payload.pilotGoal?.trim() || "",
+      pilotGoal,
+      contact,
       email,
       phone,
       comment: payload.comment?.trim() || "",

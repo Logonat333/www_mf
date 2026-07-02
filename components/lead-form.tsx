@@ -22,18 +22,17 @@ function validateLead(payload: Record<string, FormDataEntryValue | null>) {
     return "Укажите компанию.";
   }
 
-  const email = String(payload.email || "").trim();
-  if (!email) {
-    return "Укажите email.";
+  const contact = String(payload.contact || "").trim();
+  if (!contact) {
+    return "Укажите email, Telegram или телефон для связи.";
   }
 
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+  if (contact.includes("@") && !contact.startsWith("@") && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact)) {
     return "Проверьте email.";
   }
 
-  const phone = String(payload.phone || "").replace(/[^\d+]/g, "");
-  if (phone.length < 7) {
-    return "Проверьте телефон.";
+  if (!String(payload.pilotGoal || "").trim()) {
+    return "Коротко опишите, что хотите проверить первым.";
   }
 
   return "";
@@ -55,8 +54,7 @@ export function LeadForm({ compact = false }: LeadFormProps) {
       projectCount: formData.get("projectCount"),
       currentTools: formData.get("currentTools"),
       pilotGoal: formData.get("pilotGoal"),
-      email: formData.get("email"),
-      phone: formData.get("phone"),
+      contact: formData.get("contact"),
       comment: formData.get("comment"),
       source: window.location.pathname
     };
@@ -84,8 +82,7 @@ export function LeadForm({ compact = false }: LeadFormProps) {
           projectCount: String(payload.projectCount || "").trim(),
           currentTools: String(payload.currentTools || "").trim(),
           pilotGoal: String(payload.pilotGoal || "").trim(),
-          email: String(payload.email || "").trim(),
-          phone: String(payload.phone || "").trim(),
+          contact: String(payload.contact || "").trim(),
           comment: String(payload.comment || "").trim(),
           source: payload.source
         })
@@ -100,7 +97,7 @@ export function LeadForm({ compact = false }: LeadFormProps) {
       form.reset();
       setStatus({
         kind: "success",
-        message: "Заявка на пилот отправлена. Команда MailFlow свяжется с вами."
+        message: "Заявка отправлена. Свяжемся с вами и предложим первый процесс для пилота."
       });
     } catch (error) {
       const message = error instanceof Error ? error.message : "Не удалось отправить заявку.";
@@ -128,59 +125,60 @@ export function LeadForm({ compact = false }: LeadFormProps) {
           />
         </div>
         <div className="field">
+          <label htmlFor={compact ? "contact-channel" : "lead-channel"}>Email, Telegram или телефон</label>
+          <input
+            id={compact ? "contact-channel" : "lead-channel"}
+            name="contact"
+            type="text"
+            autoComplete="email"
+            placeholder="Например: @username или name@company.ru"
+            required
+          />
+        </div>
+        <div className="field span-2">
+          <label htmlFor={compact ? "contact-goal" : "lead-goal"}>Где сейчас больше всего трения</label>
+          <input
+            id={compact ? "contact-goal" : "lead-goal"}
+            name="pilotGoal"
+            type="text"
+            placeholder="Например: промо-календарь, бюджеты, рассылки, задачи или интеграции"
+            required
+          />
+        </div>
+        <div className="field">
           <label htmlFor={compact ? "contact-role" : "lead-role"}>Ваша роль</label>
           <select id={compact ? "contact-role" : "lead-role"} name="role" defaultValue="">
             <option value="" disabled>
               Выберите роль
             </option>
-            <option value="owner">Владелец / руководитель агентства</option>
+            <option value="enterprise-marketing">Руководитель enterprise-маркетинга</option>
+            <option value="network-marketing">Маркетинг сети / франшизы</option>
             <option value="crm-marketer">CRM-маркетолог</option>
+            <option value="marketing-team">Внутренняя маркетинговая команда</option>
+            <option value="agency-owner">Владелец / руководитель агентства</option>
             <option value="project-lead">Project / account lead</option>
-            <option value="client-side">Маркетолог на стороне клиента</option>
+            <option value="it-security">IT / безопасность</option>
           </select>
         </div>
         <div className="field">
-          <label htmlFor={compact ? "contact-projects" : "lead-projects"}>Клиентов или проектов</label>
+          <label htmlFor={compact ? "contact-projects" : "lead-projects"}>Объем процесса</label>
           <select id={compact ? "contact-projects" : "lead-projects"} name="projectCount" defaultValue="">
             <option value="" disabled>
               Выберите объем
             </option>
-            <option value="1-2">1-2 для первого пилота</option>
-            <option value="3-5">3-5 активных проектов</option>
-            <option value="6-15">6-15 активных проектов</option>
-            <option value="15+">Больше 15 проектов</option>
+            <option value="1-2">1-2 процесса для пилота</option>
+            <option value="3-5">3-5 активных процессов</option>
+            <option value="6-15">6-15 активностей / проектов</option>
+            <option value="15+">Больше 15 активностей / точек</option>
           </select>
         </div>
-        <div className="field">
-          <label htmlFor={compact ? "contact-email" : "lead-email"}>Email</label>
-          <input
-            id={compact ? "contact-email" : "lead-email"}
-            name="email"
-            type="email"
-            autoComplete="email"
-            required
-          />
-        </div>
-        <div className="field">
-          <label htmlFor={compact ? "contact-phone" : "lead-phone"}>Телефон</label>
-          <input id={compact ? "contact-phone" : "lead-phone"} name="phone" type="tel" autoComplete="tel" required />
-        </div>
         <div className="field span-2">
-          <label htmlFor={compact ? "contact-tools" : "lead-tools"}>Где сейчас живет процесс</label>
+          <label htmlFor={compact ? "contact-tools" : "lead-tools"}>Где сейчас живут план, задачи, бюджеты и данные</label>
           <input
             id={compact ? "contact-tools" : "lead-tools"}
             name="currentTools"
             type="text"
-            placeholder="Например: Excel, Planfix, Miro, Drive, Telegram"
-          />
-        </div>
-        <div className="field span-2">
-          <label htmlFor={compact ? "contact-goal" : "lead-goal"}>Что хотите проверить в пилоте</label>
-          <input
-            id={compact ? "contact-goal" : "lead-goal"}
-            name="pilotGoal"
-            type="text"
-            placeholder="Например: задачи и согласования по двум клиентам"
+            placeholder="Например: Excel, CDP, ERP, 1C, BI, таскер, Drive, Telegram"
           />
         </div>
         <div className="field span-2">
@@ -189,13 +187,13 @@ export function LeadForm({ compact = false }: LeadFormProps) {
             id={compact ? "contact-comment" : "lead-comment"}
             name="comment"
             rows={5}
-            placeholder="Коротко опишите команду, текущий процесс или главный источник хаоса."
+            placeholder="Коротко опишите команду, текущий процесс, ограничения по данным или главный источник ручной сверки."
           />
         </div>
       </div>
       <div className="cluster">
         <button className="button button-primary" type="submit" disabled={isSubmitting}>
-          {isSubmitting ? "Отправляем..." : "Запросить демо"}
+          {isSubmitting ? "Отправляем..." : "Получить план пилота"}
         </button>
       </div>
       <div className={`form-status${status.kind ? ` ${status.kind}` : ""}`} aria-live="polite">

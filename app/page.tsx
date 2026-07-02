@@ -1,31 +1,51 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, CheckCircle2, CircleAlert } from "lucide-react";
 
 import { InterfaceSlideshow } from "@/components/interface-slideshow";
 import { LeadForm } from "@/components/lead-form";
 import { StructuredData } from "@/components/structured-data";
-import { faqItems, painPoints, scenarios, trustPoints, workflowSteps } from "@/lib/site-content";
+import { ThemeScreenshot } from "@/components/theme-screenshot";
+import { afterRequestSteps, faqItems, painPoints, pilotProof, scenarios, trustPoints, workflowSteps } from "@/lib/site-content";
 import { buildMetadata, getBaseUrl } from "@/lib/site-config";
 
 export const metadata = buildMetadata({
-  title: "MailFlow | Единый хаб для агентства и клиента",
+  title: "MailFlow | Enterprise Marketing Planning и промо-календарь",
   description:
-    "MailFlow помогает маркетинговым агентствам вести задачи, доски, материалы, календарь и согласования с клиентами в одном рабочем хабе.",
+    "MailFlow помогает сетям, франшизам и маркетинговым командам планировать промо-акции, бюджеты, задачи, рассылки и результаты в одном контуре.",
   path: "/"
 });
 
 const nowVsMailFlow = [
   {
-    before: "План в Excel, задачи в Planfix, карта в Miro, правки в Telegram",
-    after: "Задача, доска, текст, статус и дедлайн связаны внутри одного проекта"
+    before: "Промо-календарь в Excel, задачи в таскере, бюджет в финансах, результат в BI",
+    after: "Активность, задачи, бюджет, материалы, статус и результат связаны в одном контуре"
   },
   {
-    before: "Клиент просит правку в чате, команда ищет последнюю версию текста",
-    after: "Клиент видит нужную карточку, оставляет правку и согласует там же"
+    before: "Команда поздно видит перерасход бюджета и конфликт промо-механик",
+    after: "Лимиты, фактический расход, риск перегруза и следующий шаг видны рядом с планом"
   },
   {
-    before: "Руководитель спрашивает статус вручную и собирает картину по людям",
-    after: "Статусы, ответственные и ближайшие блокеры видны без отдельного статус-чека"
+    before: "Интеграции с CDP, ERP, 1C и рассылками обсуждаются отдельно от процесса",
+    after: "MailFlow становится верхним слоем планирования и контроля над текущим стеком"
+  }
+];
+
+const heroStats = [
+  {
+    value: "1-2",
+    label: "процесса достаточно для первого enterprise-пилота"
+  },
+  {
+    value: "MPC",
+    label: "marketing planning & control вместо разрозненных таблиц"
+  },
+  {
+    value: "6 зон",
+    label: "промо-календарь, задачи, бюджеты, документы, доски и аналитика"
+  },
+  {
+    value: "API",
+    label: "интеграции с CDP, ERP, 1C, рассылками и аналитикой после пилота"
   }
 ];
 
@@ -50,7 +70,7 @@ export default function HomePage() {
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web",
     description:
-      "Единый рабочий хаб для маркетинговых агентств: задачи, доски, материалы, календарь и клиентские согласования.",
+      "Enterprise Marketing Planning система для промо-календаря, задач, бюджетов, интеграций и контроля маркетинговых активностей.",
     offers: {
       "@type": "Offer",
       availability: "https://schema.org/LimitedAvailability"
@@ -65,20 +85,22 @@ export default function HomePage() {
         <div className="container figma-hero-frame">
           <div className="hero-grid hero-grid-new">
           <div className="hero-copy">
+            <span className="eyebrow">Enterprise Marketing Planning</span>
             <h1>
-              Единое пространство для работы маркетинга
+              Планирование и контроль маркетинга сети в одном контуре
             </h1>
             <p className="lead">
-              MailFlow собирает задачи, доски, материалы, календарь и согласования в одном рабочем контуре, чтобы
-              команда не склеивала клиентский процесс из таблиц, чатов, таскеров и отдельных холстов.
+              MailFlow объединяет промо-календарь, задачи, бюджеты, документы, доски, интеграции и аналитику, чтобы
+              маркетинг, финансы, операционная команда и подрядчики видели один план, один статус и понятный следующий
+              шаг.
             </p>
             <div className="hero-actions">
               <Link className="button button-primary" href="/contacts">
-                Запросить демо
+                Обсудить мой процесс
                 <ArrowRight size={18} />
               </Link>
               <Link className="button button-secondary" href="/solutions">
-                Как это работает
+                Посмотреть сценарии
               </Link>
             </div>
           </div>
@@ -86,14 +108,22 @@ export default function HomePage() {
             <InterfaceSlideshow />
           </div>
         </div>
+        <div className="container hero-stat-grid">
+          {heroStats.map((item) => (
+            <div key={item.value} className="hero-stat-card">
+              <strong>{item.value}</strong>
+              <span>{item.label}</span>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="section">
         <div className="container">
           <div className="section-head">
             <div className="section-copy">
-              <h2>Почему это болит</h2>
-              <p>Повторяющийся паттерн из встреч: проблема не в одной таблице, а в разрыве всего клиентского процесса.</p>
+              <h2>Где enterprise-маркетинг теряет контроль</h2>
+              <p>Проблема не в одной таблице. Enterprise-маркетинг распадается между календарем, бюджетами, задачами, CDP, ERP, рассылками и отчетами, поэтому команда вручную собирает контроль.</p>
             </div>
           </div>
           <div className="feature-grid">
@@ -112,11 +142,11 @@ export default function HomePage() {
         <div className="container">
           <div className="surface compare-panel">
             <div className="section-copy">
-              <span className="eyebrow">До и после</span>
-              <h2>MailFlow не просит сразу заменить весь стек</h2>
+              <span className="eyebrow">Проверка без большого внедрения</span>
+              <h2>MailFlow не заменяет CDP или ERP, а связывает их в контур планирования</h2>
               <p>
-                Первый вход в продукт — забрать конкретный контур клиентской работы, где чаще всего теряются контекст,
-                правки и ответственность.
+                Берем один участок: промо-календарь, бюджетирование акций, контроль рассылок или клиентский процесс.
+                Проверяем пользу на реальной работе, а интеграции подключаем после подтверждения ценности.
               </p>
             </div>
             <div className="compare-list">
@@ -140,10 +170,53 @@ export default function HomePage() {
 
       <section className="section">
         <div className="container">
+          <div className="surface pilot-proof-grid">
+            <div className="pilot-proof-copy">
+              <span className="card-tag">{pilotProof.tag}</span>
+              <h2>{pilotProof.title}</h2>
+              <p>{pilotProof.text}</p>
+              <div className="pilot-proof-list-grid">
+                <div className="pilot-proof-list-wrap">
+                  <strong>
+                    <CircleAlert size={18} aria-hidden="true" />
+                    До пилота
+                  </strong>
+                  <ul className="pilot-proof-list">
+                    {pilotProof.before.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="pilot-proof-list-wrap">
+                  <strong>
+                    <CheckCircle2 size={18} aria-hidden="true" />
+                    После настройки
+                  </strong>
+                  <ul className="pilot-proof-list">
+                    {pilotProof.after.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div className="pilot-proof-shot">
+              <div className="pilot-proof-shot-top">
+                <span>Клиентский проект</span>
+                <span>Live demo</span>
+              </div>
+              <ThemeScreenshot lightSrc={pilotProof.lightSrc} darkSrc={pilotProof.darkSrc} alt={pilotProof.alt} />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
           <div className="section-head">
             <div className="section-copy">
-              <h2>Один поток вместо набора костылей</h2>
-              <p>Сайт продает не набор модулей, а понятный рабочий путь от запроса клиента до результата.</p>
+              <h2>Один поток от маркетингового плана до результата</h2>
+              <p>Каждый шаг закрывает конкретную работу: запланировать активность, поставить задачи, связать материалы, проконтролировать бюджет и увидеть результат.</p>
             </div>
             <Link className="button button-secondary" href="/features">
               Что внутри
@@ -165,8 +238,8 @@ export default function HomePage() {
         <div className="container">
           <div className="section-head">
             <div className="section-copy">
-              <h2>Кому пилот особенно полезен</h2>
-              <p>Фокус первого релиза — команды, где есть агентство, клиент, несколько ролей и постоянные согласования.</p>
+              <h2>Кому MailFlow нужен в первую очередь</h2>
+              <p>Быстрее всего пользу видят команды, где много активностей, точек продаж, подрядчиков, бюджетов и интеграций каждый день требуют единого контроля.</p>
             </div>
             <Link className="button button-secondary" href="/solutions">
               Все сценарии
@@ -189,7 +262,7 @@ export default function HomePage() {
           <div className="section-head">
             <div className="section-copy">
               <h2>FAQ</h2>
-              <p>Короткие ответы на вопросы, которые обычно возникают перед пилотом.</p>
+              <p>Короткие ответы на вопросы, которые обычно мешают оставить заявку на пилот.</p>
             </div>
           </div>
           <div className="faq-list">
@@ -203,14 +276,41 @@ export default function HomePage() {
         </div>
       </section>
 
+      <section className="section">
+        <div className="container">
+          <div className="section-head">
+            <div className="section-copy">
+              <span className="eyebrow">После заявки</span>
+              <h2>Сначала разбираем процесс, а не продаем большой переезд</h2>
+              <p>
+                Заявка нужна, чтобы понять ваш текущий маршрут и предложить узкий пилот. На первом шаге не требуется
+                переносить все задачи, документы и интеграции.
+              </p>
+            </div>
+            <Link className="button button-secondary" href="/contacts">
+              Получить план пилота
+            </Link>
+          </div>
+          <div className="next-step-grid">
+            {afterRequestSteps.map((item, index) => (
+              <article key={item.title} className="next-step-card">
+                <span>{index + 1}</span>
+                <h3>{item.title}</h3>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="section" id="lead-form">
         <div className="container contact-grid">
           <div className="surface contact-card">
-            <span className="card-tag">Заявка на пилот</span>
-            <h2>Проверим MailFlow на вашем реальном клиентском процессе</h2>
+            <span className="card-tag">Пилот на вашем процессе</span>
+            <h2>Покажем, какой кусок процесса стоит перенести первым</h2>
             <p>
-              Лучше всего начать с 1-2 проектов: перенести ключевые задачи, доски, материалы, календарь и точки
-              согласования, а затем честно оценить пользу.
+              Лучше всего начать с 1-2 проектов: разобрать текущий стек, выбрать болезненный маршрут и заранее
+              зафиксировать, что должно стать проще для команды и клиента.
             </p>
             <div className="trust-grid">
               {trustPoints.map((item) => (
@@ -232,18 +332,19 @@ export default function HomePage() {
           <div className="surface cta-banner">
             <div className="cta-grid">
               <div>
-                <h2>Есть процесс в таблицах, чатах и досках?</h2>
+                <h2>Есть клиентские проекты, которые распадаются между сервисами?</h2>
                 <p className="lead">
-                  Оставьте заявку, и мы предложим, какой кусок лучше взять в первый пилот без полного переезда команды.
+                  Оставьте заявку, и мы предложим, какой процесс стоит взять в пилот, чтобы быстро проверить пользу без
+                  переноса всего стека команды.
                 </p>
               </div>
               <div className="cluster">
                 <Link className="button button-primary" href="/contacts">
-                  Запросить демо
+                  Обсудить мой процесс
                   <ArrowRight size={18} />
                 </Link>
                 <Link className="button button-secondary" href="/pricing">
-                  Форматы пилота
+                  Тарифы
                 </Link>
               </div>
             </div>

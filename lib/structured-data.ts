@@ -10,7 +10,7 @@ export function organizationJsonLd() {
     name: siteConfig.name,
     legalName: companyRequisites.shortLegalName,
     url,
-    email: "hello@mail-flow-crm.ru",
+    email: "davritsevich1@gmail.com",
     taxID: companyRequisites.inn,
     address: {
       "@type": "PostalAddress",
@@ -33,7 +33,7 @@ export function organizationJsonLd() {
       {
         "@type": "ContactPoint",
         contactType: "sales",
-        email: "hello@mail-flow-crm.ru",
+        email: "davritsevich1@gmail.com",
         availableLanguage: ["Russian"]
       }
     ]

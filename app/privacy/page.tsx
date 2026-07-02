@@ -45,7 +45,7 @@ export default function PrivacyPage() {
               <h3>5. Обратная связь</h3>
               <p>
                 По вопросам обработки данных используйте адрес{" "}
-                <a href="mailto:hello@mail-flow-crm.ru">hello@mail-flow-crm.ru</a>.
+                <a href="mailto:davritsevich1@gmail.com">davritsevich1@gmail.com</a>.
               </p>
               <h3>6. Оператор</h3>
               <p>

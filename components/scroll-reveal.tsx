@@ -9,6 +9,7 @@ const revealSelector = [
   "main .page-hero-card",
   "main .section-head",
   "main .card",
+  "main .product-view-card",
   "main .surface",
   "main .workflow-card",
   "main .feature-section",

@@ -1,12 +1,12 @@
 import { LeadForm } from "@/components/lead-form";
 import { StructuredData } from "@/components/structured-data";
-import { companyRequisites, trustPoints } from "@/lib/site-content";
+import { afterRequestSteps, companyRequisites, trustPoints } from "@/lib/site-content";
 import { buildMetadata } from "@/lib/site-config";
 
 export const metadata = buildMetadata({
-  title: "Заявка на пилот MailFlow | Проверить процесс агентства и клиента",
+  title: "Заявка на пилот MailFlow | Промо-календарь, бюджеты и интеграции",
   description:
-    "Оставьте заявку на пилот MailFlow: расскажите о роли, числе проектов, текущих инструментах и контуре, который хотите проверить.",
+    "Оставьте заявку на пилот MailFlow: расскажите о промо-календаре, задачах, бюджетах, интеграциях и процессе, который хотите проверить.",
   path: "/contacts"
 });
 
@@ -24,10 +24,10 @@ export default function ContactsPage() {
         <div className="container">
           <div className="surface page-hero-card">
             <span className="eyebrow">Заявка на пилот</span>
-            <h1>Покажите, где у вас распадается клиентский процесс</h1>
+            <h1>Получите план пилота для вашего маркетингового процесса</h1>
             <p className="page-intro">
-              Мы предложим узкий пилот: 1-2 проекта, конкретные роли, текущие инструменты и понятный критерий, что
-              MailFlow действительно снижает хаос.
+              Мы разберем ваш текущий стек, роли, промо-календарь, бюджеты и интеграции, затем предложим пилот,
+              который можно проверить без большого внедрения.
             </p>
           </div>
         </div>
@@ -36,20 +36,29 @@ export default function ContactsPage() {
       <section className="section" id="contact-form">
         <div className="container contact-grid">
           <div className="surface contact-card">
-            <h2>Квалифицирующая форма</h2>
+            <h2>Получите план первого пилота</h2>
             <p>
-              Чем точнее вы опишете текущий стек, тем быстрее получится выбрать первый рабочий контур: задачи,
-              доски, материалы, календарь или согласования.
+              Достаточно указать, где сейчас больше всего трения. Остальные детали можно разобрать на коротком созвоне.
             </p>
             <LeadForm compact />
           </div>
           <div className="surface contact-card">
+            <span className="card-tag">Что будет после заявки</span>
+            <div className="next-step-grid trust-grid-one">
+              {afterRequestSteps.map((item, index) => (
+                <article key={item.title} className="next-step-card">
+                  <span>{index + 1}</span>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </article>
+              ))}
+            </div>
             <h2>Кому подходит первый пилот</h2>
             <ul className="check-list">
-              <li>Агентство ведет несколько клиентов или проектов параллельно</li>
-              <li>Задачи, доски, документы и клиентские правки живут в разных местах</li>
-              <li>Команда хочет проверить продукт без полного переезда с текущего стека</li>
-              <li>Есть готовность взять 1-2 реальных проекта и пройти пилот честно</li>
+              <li>Команда ведет промо-календарь, задачи, бюджеты и результаты в разных системах</li>
+              <li>Нужно проверить контроль маркетингового бюджета до тяжелых интеграций</li>
+              <li>Есть ограничения по данным, безопасности, ролям или on-premise-развертыванию</li>
+              <li>Есть 1-2 реальных процесса и понятный критерий пользы</li>
             </ul>
             <div className="trust-grid trust-grid-one">
               {trustPoints.map((item) => (
@@ -60,8 +69,8 @@ export default function ContactsPage() {
               ))}
             </div>
             <div className="contact-list">
-              <a href="mailto:hello@mail-flow-crm.ru">hello@mail-flow-crm.ru</a>
-              <a href="https://t.me/mailflow" target="_blank" rel="noreferrer">
+              <a href="mailto:davritsevich1@gmail.com">davritsevich1@gmail.com</a>
+              <a href="https://t.me/AvritsevichD" target="_blank" rel="noreferrer">
                 Telegram
               </a>
             </div>

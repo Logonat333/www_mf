@@ -6,15 +6,19 @@ export const siteConfig = {
   name: "MailFlow",
   domain: fallbackUrl,
   description:
-    "MailFlow помогает маркетинговым агентствам и клиентам вести задачи, доски, материалы, календарь и согласования в одном рабочем хабе.",
+    "MailFlow помогает сетям, франшизам и маркетинговым командам планировать промо-акции, бюджеты, задачи, интеграции и результаты в одном MPC-контуре.",
   keywords: [
     "MailFlow",
-    "маркетинговое агентство",
-    "клиентские согласования",
+    "Enterprise Marketing Planning",
+    "Marketing Planning Control",
+    "MPC система для маркетинга",
+    "промо-календарь",
+    "бюджетирование маркетинга",
+    "контроль маркетингового бюджета",
+    "маркетинговые активности",
     "маркетинговые задачи",
-    "проектный хаб",
-    "CRM маркетинг",
-    "контент-план",
+    "интеграции маркетинга",
+    "единая система маркетинга сети",
     "пилот SaaS"
   ]
 };
@@ -39,6 +43,17 @@ export function buildMetadata({
     title,
     description,
     keywords: siteConfig.keywords,
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+        "max-video-preview": -1
+      }
+    },
     alternates: {
       canonical: url.toString()
     },

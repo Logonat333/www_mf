@@ -2,13 +2,13 @@ import Link from "next/link";
 import { ArrowRight, BriefcaseBusiness, ClipboardList, Handshake, UserRoundCog } from "lucide-react";
 
 import { StructuredData } from "@/components/structured-data";
-import { scenarios } from "@/lib/site-content";
+import { audienceLandingPages, scenarios } from "@/lib/site-content";
 import { buildMetadata } from "@/lib/site-config";
 
 export const metadata = buildMetadata({
-  title: "Сценарии MailFlow | Агентство, CRM-маркетолог, project lead и клиент",
+  title: "Сценарии MailFlow | Enterprise marketing, сети, франшизы и агентства",
   description:
-    "Ролевые сценарии MailFlow для агентства и клиента: задачи, доски, согласования, календарь и материалы в одном рабочем хабе.",
+    "Сценарии MailFlow для enterprise-маркетинга, сетей, франшиз, маркетологов и агентств: промо-календарь, бюджеты, задачи, интеграции и аналитика.",
   path: "/solutions"
 });
 
@@ -16,20 +16,20 @@ const icons = [BriefcaseBusiness, UserRoundCog, ClipboardList, Handshake];
 
 const roleStates = [
   {
-    before: ["Статусы собираются вручную", "Сложно доказать объем работ", "Клиентская картина распадается"],
-    after: ["Пилот на реальных проектах", "Видно задачи и блокеры", "Проще обсуждать расширение объема"]
+    before: ["План собирается вручную", "Бюджет виден поздно", "Результат оторван от активности"],
+    after: ["Пилот на реальных процессах", "Видно задачи, бюджет и блокеры", "Проще обсуждать интеграции"]
   },
   {
-    before: ["Запросы прилетают в чаты", "Тексты и файлы живут отдельно", "Правки теряются между версиями"],
-    after: ["Запрос сразу становится задачей", "Материалы рядом с активностью", "Согласование привязано к карточке"]
+    before: ["Рассылки живут в CDP", "План ведется в таблице", "Результат переносится вручную"],
+    after: ["Активность связана с задачей", "Материалы рядом с запуском", "Результат привязан к карточке"]
   },
   {
-    before: ["Доски, задачи и документы разорваны", "Много вложенных задач", "Трудно быстро понять состояние проекта"],
-    after: ["Доска связана с задачей", "Проект виден как рабочий контур", "Клиенту открыт только нужный слой"]
+    before: ["Филиалы ведутся в таблицах", "Материалы разъезжаются по чатам", "Трудно понять состояние сети"],
+    after: ["Филиалы связаны с активностями", "Документы рядом с задачами", "Сеть видна как рабочее пространство"]
   },
   {
-    before: ["Нужно писать в чат", "Не видно последнюю версию", "Неясно, кто ждет ответа"],
-    after: ["Видит нужные материалы", "Правит или согласует в одном месте", "Понимает статус и следующий шаг"]
+    before: ["Данные нельзя выносить без проверки", "IT не видит архитектуру", "Интеграции обсуждаются поздно"],
+    after: ["Есть контур данных", "Понятны доступы и роли", "План внедрения готов до закупки"]
   }
 ];
 
@@ -38,7 +38,7 @@ export default function SolutionsPage() {
     "@context": "https://schema.org",
     "@type": "CollectionPage",
     name: "Сценарии MailFlow",
-    about: scenarios.map((item) => item.tag)
+    about: [...scenarios.map((item) => item.tag), ...audienceLandingPages.map((item) => item.navLabel)]
   };
 
   return (
@@ -48,11 +48,45 @@ export default function SolutionsPage() {
         <div className="container">
           <div className="surface page-hero-card">
             <span className="eyebrow">Ролевые сценарии</span>
-            <h1>MailFlow полезен только там, где сходятся роли</h1>
+            <h1>Как MailFlow помогает enterprise-маркетингу, сетям и агентствам видеть один план</h1>
             <p className="page-intro">
-              Главная ценность пилота появляется на стыке агентства и клиента: один ставит задачу, другой делает,
-              третий согласует, руководитель держит контроль.
+              MailFlow особенно полезен там, где несколько ролей управляют маркетинговыми активностями: один планирует
+              промо, другой ведет задачи, третий отвечает за бюджет, руководитель держит контроль.
             </p>
+            <div className="hero-actions">
+              <Link className="button button-primary" href="/contacts">
+                Обсудить мой процесс
+                <ArrowRight size={18} />
+              </Link>
+              <Link className="button button-secondary" href="/features">
+                Смотреть возможности
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section">
+        <div className="container">
+          <div className="section-head">
+            <div className="section-copy">
+              <span className="eyebrow">Для кого</span>
+              <h2>Отдельные страницы под аудитории и поисковые запросы</h2>
+              <p>
+                На этих посадочных можно точнее раскрывать пользу MailFlow для enterprise-маркетинга, сетей,
+                франшиз, агентств, digital-команд, маркетологов и внутренних команд.
+              </p>
+            </div>
+          </div>
+          <div className="feature-grid audience-card-grid">
+            {audienceLandingPages.map((page) => (
+              <Link key={page.slug} className="card audience-link-card" href={`/solutions/${page.slug}`}>
+                <span className="card-tag">{page.tag}</span>
+                <h3>{page.navLabel}</h3>
+                <p>{page.description}</p>
+                <span className="card-keyword">{page.keywords[0]}</span>
+              </Link>
+            ))}
           </div>
         </div>
       </section>
@@ -74,7 +108,7 @@ export default function SolutionsPage() {
                 <div className="problem-solution-grid">
                   <article className="card card-contrast card-problem">
                     <h3>
-                      <span className="problem-label">До:</span> процесс приходится склеивать
+                      <span className="problem-label">До:</span> процесс приходится склеивать вручную
                     </h3>
                     <p>{item.text}</p>
                     <div className="state-box state-box-danger">
@@ -117,14 +151,15 @@ export default function SolutionsPage() {
           <div className="surface cta-banner">
             <div className="cta-grid">
               <div>
-                <h2>Есть роль, которая чаще всего ломает процесс?</h2>
+                <h2>Где сейчас ломается ваш процесс чаще всего?</h2>
                 <p className="lead">
-                  В заявке укажите, где сейчас больше всего трения: постановка, исполнение, согласование или контроль.
+                  В заявке укажите, где больше всего трения: промо-календарь, бюджетирование, задачи, интеграции,
+                  согласования или контроль результата.
                 </p>
               </div>
               <div className="cluster">
                 <Link className="button button-primary" href="/contacts">
-                  Описать процесс
+                  Обсудить мой процесс
                   <ArrowRight size={18} />
                 </Link>
                 <Link className="button button-secondary" href="/features">

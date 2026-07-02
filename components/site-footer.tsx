@@ -2,7 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Linkedin, Mail, Send } from "lucide-react";
 
-import { companyRequisites } from "@/lib/site-content";
+import { audienceLandingPages, companyRequisites, featureLandingPages } from "@/lib/site-content";
 
 export function SiteFooter() {
   return (
@@ -14,7 +14,7 @@ export function SiteFooter() {
             <span>MailFlow</span>
           </Link>
           <p className="legal-note">
-            Единый рабочий хаб для маркетинговых агентств, клиентских задач, досок и согласований.
+            Enterprise Marketing Planning: промо-календарь, задачи, бюджеты, документы, интеграции и аналитика.
           </p>
           <p className="legal-note legal-entity">
             {companyRequisites.shortLegalName}
@@ -22,13 +22,19 @@ export function SiteFooter() {
             ИНН {companyRequisites.inn}
           </p>
           <div className="social-row">
-            <a className="social-link" href="mailto:hello@mail-flow-crm.ru" aria-label="MailFlow email">
+            <a className="social-link" href="mailto:davritsevich1@gmail.com" aria-label="MailFlow email">
               <Mail size={16} />
             </a>
-            <a className="social-link" href="#" aria-label="MailFlow LinkedIn">
+            <a
+              className="social-link"
+              href="https://www.linkedin.com/in/%D0%B4%D0%BC%D0%B8%D1%82%D1%80%D0%B8%D0%B9-%D0%B0%D0%B2%D1%80%D0%B8%D1%86%D0%B5%D0%B2%D0%B8%D1%87-b3701931a/?skipRedirect=true"
+              target="_blank"
+              rel="noreferrer"
+              aria-label="MailFlow LinkedIn"
+            >
               <Linkedin size={16} />
             </a>
-            <a className="social-link" href="https://t.me/mailflow" target="_blank" rel="noreferrer" aria-label="MailFlow Telegram">
+            <a className="social-link" href="https://t.me/AvritsevichD" target="_blank" rel="noreferrer" aria-label="MailFlow Telegram">
               <Send size={16} />
             </a>
           </div>
@@ -36,22 +42,29 @@ export function SiteFooter() {
         <div className="footer-links">
           <strong>Продукт</strong>
           <Link href="/features">Возможности</Link>
-          <Link href="/solutions">Сценарии</Link>
-          <Link href="/pricing">Тарифы</Link>
-          <Link href="/contacts">Заявка</Link>
+          {featureLandingPages.map((page) => (
+            <Link key={page.slug} href={`/features/${page.slug}`}>
+              {page.navLabel}
+            </Link>
+          ))}
         </div>
         <div className="footer-links">
-          <strong>Компания</strong>
+          <strong>Для кого</strong>
+          <Link href="/solutions">Сценарии</Link>
+          {audienceLandingPages.map((page) => (
+            <Link key={page.slug} href={`/solutions/${page.slug}`}>
+              {page.navLabel}
+            </Link>
+          ))}
+        </div>
+        <div className="footer-links">
+          <strong>Запуск</strong>
+          <Link href="/pricing">Форматы запуска</Link>
+          <Link href="/contacts">Заявка на пилот</Link>
           <Link href="/contacts">Контакты</Link>
           <Link href="/contacts#requisites">Реквизиты</Link>
           <Link href="/privacy">Политика</Link>
-          <a href="mailto:hello@mail-flow-crm.ru">hello@mail-flow-crm.ru</a>
-        </div>
-        <div className="footer-links">
-          <strong>Тарифы</strong>
-          <Link href="/pricing">Форматы тарифов</Link>
-          <Link href="/solutions">Для кого</Link>
-          <Link href="/features">Что внутри</Link>
+          <a href="mailto:davritsevich1@gmail.com">davritsevich1@gmail.com</a>
         </div>
       </div>
       <div className="container footer-bottom">
